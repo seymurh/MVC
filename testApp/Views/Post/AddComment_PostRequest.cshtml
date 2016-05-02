@@ -1,0 +1,24 @@
+﻿@model List<testApp.Models.Post>
+@using testApp.Models;
+
+<h2>Comment sucessfully added to Post</h2>
+
+
+<h3>Post Succesfully Added</h3>
+<br />
+
+@foreach (Post pst in Model)
+{
+    <div>
+        <b>@pst.Header</b>
+        <dl>
+            <dd>@pst.Content</dd>
+        </dl>
+    </div>
+    <table>
+        <tr>
+            <td>@Html.ActionLink("Add Comment", "AddComment", new { id = @pst.Id })</td>
+        </tr>
+    </table>
+    <hr />
+}

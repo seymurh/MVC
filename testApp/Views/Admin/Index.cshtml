@@ -1,0 +1,80 @@
+﻿@model IEnumerable<testApp.Models.Role>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_BlogBaseLayout.cshtml";
+}
+
+<h2>Roles</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddRole")
+</p>
+<table class="table table-striped table-hover table-bordered table-condensed" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Update", "Update", new {  id=item.Id}) |
+          
+            @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+        </td>
+    </tr>
+}
+    @*@foreach(User user in ((List<User>)ViewBag.users)){
+    
+    }*@
+</table>
+@section right{
+    <div class="col-md-4">
+
+        <!-- Blog Search Well -->
+        <div class="well">
+            <h4>Blog Search</h4>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+            <!-- /.input-group -->
+        </div>
+
+        <!-- Blog Categories Well -->
+        <div class="well">
+            <h4>Blog Categories</h4>
+            <div class="row">
+                <div class="col-lg-8">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="@Url.Action("Index","Admin")">Roles</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Users","Admin")">Users</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div>
+
+        <!-- Side Widget Well -->
+        <div class="well">
+            <h4>Side Widget Well</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+        </div>
+
+    </div>
+}

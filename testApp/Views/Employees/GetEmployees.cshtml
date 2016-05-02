@@ -1,0 +1,41 @@
+﻿@model List<Employee>
+
+@{
+    ViewBag.Title = "GetEmployees";
+}
+
+<h2>Işçilər</h2>
+@*<a href="@Url.Action()">Yeni işci</a>*@
+@Html.ActionLink("Yeni işçi", "AddEmployee", "Employees")
+<table>
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Nömrəsi</th>
+            <th>Əmək haqqı</th>
+            <th> </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Employee emp in Model)
+        {
+            <tr>
+                <td>
+                    @emp.Name
+                </td>
+                <td>
+                    @emp.Phone
+                </td>
+                <td>
+                    @emp.Salary
+                </td>
+                <td>
+                    <a href="@Url.Action("UpdateEmployee", "Employees", new { id = emp.Id })" >Dəyiş</a>
+                </td>
+                <td>Details</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

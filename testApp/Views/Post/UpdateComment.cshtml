@@ -1,0 +1,17 @@
+﻿@model testApp.Models.Comment
+
+@{
+    ViewBag.Title = "UpdateComment";
+}
+
+<h2>UpdateComment</h2>
+
+<form action="@Url.Action("UpdateComment","Post")" method="post">
+    <div>
+        <label>Content</label>
+
+       <input type="text" name="content" value="@Model.Content" />
+    </div>
+    <input type="submit" value="Update"/> 
+
+</form>

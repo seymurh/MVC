@@ -1,0 +1,171 @@
+﻿@model List<Post>
+@using testApp.Models;
+@using testApp.Repositories;
+@{
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+<div>
+    <a href="@Url.Action("AddPost", "Post")">Add Post</a>
+</div>
+
+@foreach (Post pst in Model)
+{
+    <div>
+        <b>@pst.Header</b>
+        <dl>
+            <dd>
+                @Html.Raw(pst.Content!=null && pst.Content.Length>60?@pst.Content.Substring(0,50):pst.Content)
+            </dd>
+        </dl>
+    </div>
+    <table>
+        <tr>
+            <td>@Html.ActionLink("Add Comment", "AddComment", new { id = @pst.Id })</td>
+            <td>@Html.ActionLink("Delete Post", "DeletePost", new { id = @pst.Id })</td>
+            <td>@Html.ActionLink("Update Post", "UpdatePost", new { id = @pst.Id })</td>
+            <td>@Html.ActionLink("Details", "PostDetails", new { id = @pst.Id }) </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <table>
+                    <tr>
+                        <td>
+                            <button class="btn more" value="@pst.Id">+ show comments</button>
+                        </td>
+                        <td>
+                            <button class="btn showuser" value="@pst.Id">+ Show Username</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <hr />
+}
+@section scripts{
+    <script type="text/javascript">
+
+
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+        }
+        function post(url, data) {
+            data = JSON.stringify(data);
+            var oReq = new XMLHttpRequest();
+            oReq.open("POST", url);
+            oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            var ob = {
+                done: function (callback) {
+                    oReq.onload = function () {
+                        var d = null;
+                        if (this.getResponseHeader('Content-Type').indexOf('application/json') != -1) {
+                            var d = JSON.parse(this.response);
+                        } else {
+                            d = this.response;
+                        }
+                        callback(d);
+                    };
+                    
+                    //{id:2}
+                    oReq.send(data);
+                }
+            };
+            return ob;
+
+        }
+        function get(url, data) {
+            // { id = 2,name="a" }
+            // ?id=2&name="a"
+            function formatParams(params) {
+                return "?" + Object
+                      .keys(params)
+                      .map(function (key) {
+                          return key + "=" + params[key]
+                      })
+                      .join("&")
+            }
+            data = formatParams(data);
+            var oReq = new XMLHttpRequest();
+            oReq.open("GET", url + data);
+            oReq.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            var ob = {
+                done: function (callback) {
+                    oReq.onload = function () {
+                        var d = null;
+                        //Yoxlayır ki gələn data json formatındadı
+                        if (this.getResponseHeader('Content-Type').indexOf('application/json') != -1) {
+                            var d = JSON.parse(this.response);
+                        } else {
+                            d = this.response;
+                        }
+                        callback(d);
+                    };
+                    oReq.send(null);
+                }
+            };
+            return ob;
+        }
+
+
+        function showUsername() {
+
+            function showUserNameCallback(post) {
+                console.log(post);
+
+                if (post.Author != null) {
+                    alert(post.Author.Name);
+                } else {
+                    alert("Author set olunmayıb");
+                }
+            }
+
+            var btn = $(this);
+            var url = "@Url.Action("Post","Post")";
+            var postData = {
+                id: btn.val()
+            };
+
+            var listener = post(url, postData);
+
+            listener.done(showUserNameCallback);
+            //post(url, postData).done(function (post) {
+            //    console.log(post);
+
+            //    if (post.Author != null) {
+            //        alert(post.Author.Name);
+            //    } else {
+            //        alert("Author set olunmayıb");
+            //    }
+            //});
+        }
+
+        $(document).ready(function () {
+            /////////////////////////////////////
+            $('.showuser').click(showUsername);
+            $('.more').click(function () {
+                var url = "@Url.Action("PostComments","Post")";
+                var currentBtn = $(this);
+                var id = currentBtn.val();
+
+                if (currentBtn.val() !== '0') {
+                    // $=  jQuery
+                    get(url, { id: id }).done(function (data) {
+
+                        currentBtn.parent().parent().after(data);
+                        currentBtn.val('0');
+                    });
+                }
+            });
+            //////////////////////////////////////////
+        });
+    </script>
+
+}

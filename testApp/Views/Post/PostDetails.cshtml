@@ -1,0 +1,162 @@
+﻿@model  Post
+@using testApp.Models;
+@using testApp.Repositories;
+<style>
+    .profile{
+        width:64px !important;
+        height:64px !important;
+    }
+</style>
+@{
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+<h1>Blog Post Title</h1>
+
+<!-- Author -->
+<p class="lead">
+    by <a href="#">@Model.Author.Name  @Model.Author.Surname</a>
+</p>
+
+<hr>
+
+<!-- Date/Time -->
+<p><span class="glyphicon glyphicon-time"></span> Posted on @Model.PostDate</p>
+
+<hr>
+
+<!-- Preview Image 900x300 -->
+
+<img class="img-responsive" src="@Model.ImageUrl" alt="">
+
+<hr>
+
+<!-- Post Content -->
+<h3>@Model.Header</h3>
+@Html.Raw(Model.Content)
+<hr>
+
+<!-- Blog Comments -->
+<!-- Comments Form -->
+<div class="well">
+    <h4>Leave a Comment:</h4>
+    <form id="formComment" method="post" action="@Url.Action("AddComment","Post")" role="form">
+        <input type="hidden" name="post" value="@Model.Id" />
+        <div class="form-group">
+            <textarea name="Content" class="form-control" rows="3"></textarea>
+        </div>
+        <button type="button" id="comment" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr>
+
+
+<!-- Posted Comments -->
+<!-- Comment -->
+@if (@Model != null && @Model.Comments != null)
+{
+    foreach (var comment in @Model.Comments)
+    {
+        <div class="media">
+            <a  class="pull-left " href="#">
+                @* 64x64 *@
+                <img class="media-object profile img-circle" src="@(comment.Author != null && !string.IsNullOrEmpty(comment.Author.ProfileImageUrl) ? comment.Author.ProfileImageUrl: "http://placehold.it/64x64")" alt="">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    @comment.Author.Name @comment.Author.Surname
+                    <small>@comment.CommentDate</small>
+                </h4>
+                @Html.Raw(comment.Content)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-offset-10">
+                            <button type="button" class="btn btn-primary btn-xs like" value="@comment.Id">like</button>
+                            <button type="button" class="btn btn-success btn-xs reply" value="@comment.Id">reply</button>
+                        </div>
+                    </div>
+                </div>
+              
+                <!-- Nested Comment -->
+                @if (comment.Replies != null)
+                {
+                    foreach (var reply in comment.Replies)
+                    {
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object profile img-circle" src="@(reply.Author!=null && !string.IsNullOrEmpty(reply.Author.ProfileImageUrl) ?reply.Author.ProfileImageUrl : "http://placehold.it/64x64" )" alt="">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">
+                                    @reply.Author.Name @reply.Author.Surname
+                                    <small>@reply.CommentDate</small>
+                                </h4>
+                                @Html.Raw(reply.Content)
+                            </div>
+                        </div>
+                    }
+                }
+                <!-- End Nested Comment -->
+            </div>
+        </div>
+    }
+}
+
+<div id="replyModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form id="replyForm">
+                        <div class="form-group">
+                            <label class="control-label">Content</label>
+                            <textarea name="Content" class="form-control"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="replySubmit" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            $('#comment').click(function () {
+                var data = $('#formComment').serialize();
+                var url = "@Url.Action("AddComment","Post")";
+                $.post(url, data).done(function () {
+                    location.reload();
+                });
+            });
+            console.log($('.reply'));
+            $('.reply').click(function () {
+                var id = $(this).val();
+                $('#replyModal').modal('show');
+                $('#replySubmit').click(function () {
+                    var data = $('#replyForm').serialize();
+                    data += '&parentId=' + id;
+                    var url = "@Url.Action("AddCommentToComment", "Post")";
+                    $('#replySubmit').unbind('click');
+                    $.post(url, data).done(function () {
+                        location.reload();
+                    }); //post
+                });
+                //replySubmit
+            });
+            //reply
+        });
+    </script>
+}

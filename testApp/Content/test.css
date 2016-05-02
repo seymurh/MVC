@@ -1,0 +1,43 @@
+﻿/* imports content of site.css file into this location */
+@import("Site.css");
+/* element selector */
+div {
+    background-color: aliceblue !important;
+    font-size: 22px;
+    border: 1px dashed red;
+    /* rule; */
+}
+/*id selector*/
+#menu {
+    color: green;
+    background-color: yellow;
+}
+
+.right {
+    color: red;
+    font-size: 28px;
+    margin-left: 20px;
+}
+/* class selector*/
+.menu {
+    margin-left: 200px;
+}
+
+span {
+    background-color: red;
+}
+/* Attribute selector  */
+/*[name=Username]*/ 
+[name]{
+    border:3px solid red;
+}
+/* descendant selector Body içindəki bütün divlərə tətbiq olunur,hətta həmin divlərin içindəki divlərə də*/
+body div
+{
+
+}
+/* child selector ancaq bilavasitə body altındakı divlərə tətbiq edilir */
+body>div
+{
+
+}

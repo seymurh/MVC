@@ -1,0 +1,33 @@
+﻿@model testApp.Models.User
+
+@{
+    ViewBag.Title = "AddUser";
+    
+}
+
+<h2>AddUser</h2>
+
+<form action="@Url.Action("AddUser","Users")" method="post">
+    <div>
+        <label for="User">User</label>
+        <input type="text" id="Name" name="Name" value="@Model.Name" />
+    </div>
+    <div>
+        <label for="Surname">Surname</label>
+        <input type="text" name="Surname" value="@Model.Surname" />
+    </div>
+    <div>
+        <label for="Email">Email</label>
+        <input type="email" name="Email"  value="@Model.Email" />
+    </div>
+    <div >
+        <button type="submit" >Qebul</button>
+        <button type="reset" >legv et</button>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

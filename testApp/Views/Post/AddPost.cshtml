@@ -1,0 +1,104 @@
+﻿@model testApp.Models.Post
+@using testApp.Models;
+@using testApp.Repositories;
+@{
+    ViewBag.Title = "AddPost";
+}
+@{
+    PostRepository PostRep = new PostRepository();
+}
+<h2>Add Post to Timeline</h2>
+<br />
+<form id="form" action="@Url.Action("AddPost", "Post")" method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>User</legend>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Header, new { @class = "control-label" })
+            <input type="text" name="Header" id="Header" class="form-control" />
+            @Html.ValidationMessageFor(model => model.Header)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, new { @class = "control-label" })
+            <textarea name="Content" id="Content" class="form-control"></textarea>
+            @Html.ValidationMessageFor(model => model.Content)
+        </div>
+
+        <p>
+            <button type="submit" class="btn btn-success" id="submit">Add Post</button>
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Users")
+</div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" rel="stylesheet" />
+   @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />*@
+    @* <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>*@
+    <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js"></script>
+    <script type="text/javascript">
+        var myCustomTemplates = {
+            html: function (context) {
+                var locale = context.locale;
+                var options = context.options;
+                return "<li>" +
+                       "<div class='btn-group'>" +
+                       "<a class='btn btn-primary' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>HTML</a>" +
+                       "</div>" +
+                       "</li>";
+            }
+            //,
+            //video: function (context) {
+            //    var locale = context.locale;
+            //    var options = context.options;
+            //    console.log(locale);
+            //    console.log(options);
+            //    return "<li>" +
+            //           "<div class='btn-group'>" +
+            //           "<a class='btn btn-success' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>Video</a>" +
+            //           "</div>" +
+            //           "</li>";
+            //}
+        }
+        $(document).ready(function () {
+            $('#Content').wysihtml5(
+                {
+                    customTemplates: myCustomTemplates,
+                    toolbar: {
+                        "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+                        "emphasis": true, //Italics, bold, etc. Default true
+                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                        "html": true, //Button which allows you to edit the generated HTML. Default false
+                        "link": true, //Button to insert a link. Default true
+                        "image": true, //Button to insert an image. Default true,
+                        "color": false, //Button to change color of font
+                        "blockquote": true, //Blockquote
+                        "size": "none", //default: none, other options are xs, sm, lg
+                        "video": true
+                    }
+                }
+            );
+        });
+
+        @*$('#submit').click(function () {
+            var data = $('#form').serialize();
+
+            var url = "@Url.Action("AddPost", "AdminController")";
+            $.post(url, data).done(function () {
+                window.location = "@Url.Action("Index","Post")";
+            }).error(function (er) {
+                console.log(err);
+            });
+        });*@
+    </script>
+}

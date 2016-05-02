@@ -1,0 +1,47 @@
+﻿@model testApp.Models.Comment
+@using testApp.Models;
+@{
+    ViewBag.Title = "AddComment";
+}
+
+<h2>Add Comment to Post</h2>
+<br />
+<div>
+    <b>@ViewBag.post.Header</b>
+    <dl>
+        <dd>@ViewBag.post.Content</dd>
+    </dl>
+</div>
+<form method="post" enctype="multipart/form-data" action="@Url.Action("AddComment", "Post")">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="post" value="@ViewBag.post.Id" />
+    <fieldset>
+        <legend>Post</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Content, "Comment əlavə edin")
+
+            @Html.TextAreaFor(model => model.Content)
+
+        </div>
+        <div class="editor-label">
+            <label>File əlavə et</label>
+            <input type="file" name="file" />
+        </div>
+
+
+        <p>
+            <input type="submit" value="Comment" />
+        </p>
+    </fieldset>
+</form>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,47 @@
+﻿@model  List<User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Surname
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model){
+        <tr>
+            <td>
+                @{ 
+                    user.Name = "aa";
+                    string k = "";
+                    for (int i = 0; i < 10; i++) { 
+                    
+                    }
+                    @* jlasdjflkajsdfl;jadsf *@
+                    
+                    <a href="adsfasfd"> asdf</a>
+                    }
+                @user.Name
+            </td>
+            <td>
+                @user.Surname
+            </td>
+            <td>
+                @user.Email
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

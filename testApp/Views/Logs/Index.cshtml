@@ -1,0 +1,33 @@
+﻿@model  List<Log>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table>
+    <tr>
+        <th>
+            Method name
+        </th>
+        <th>
+            Action
+        </th>
+        <th>
+            Controller
+        </th>
+    </tr>
+    @foreach(Log log in Model)
+    {
+        <tr>
+            <td>
+                @log.LogMethod
+            </td>
+            <td>
+                @log.Action
+            </td>
+            <td>
+                @log.Controller
+            </td>
+        </tr>
+    }
+</table>
