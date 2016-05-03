@@ -6,6 +6,7 @@
         width:64px !important;
         height:64px !important;
     }
+    
 </style>
 @{
     Layout = "~/Views/Shared/_BlogLayout.cshtml";
@@ -15,6 +16,9 @@
 <!-- Author -->
 <p class="lead">
     by <a href="#">@Model.Author.Name  @Model.Author.Surname</a>
+    
+        <img class="img-circle img-thumbnail right profile" src="@Model.Author.ProfileImageUrl" />
+    
 </p>
 
 <hr>
