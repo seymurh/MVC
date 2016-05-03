@@ -74,7 +74,7 @@ namespace testApp.Controllers
             return View(post);
         }
         [AuthorizePost(Method.Update)]
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult UpdatePost(Post post)
         {
             Post pst = rep.FindById(post.Id);
@@ -91,11 +91,14 @@ namespace testApp.Controllers
                     {
                         file.SaveAs(path);
                     }
-                    post.ImageUrl = mvcPath;
+                    pst.ImageUrl = mvcPath;
                 }
             }
-            post.Comments = pst.Comments;
-            rep.Update(post);
+            pst.Content = post.Content;
+            pst.Header = post.Header;
+
+            rep.Update(pst);
+
             return RedirectToAction("Index");
         }
         #endregion
@@ -183,7 +186,9 @@ namespace testApp.Controllers
         [HttpPost]
         public ActionResult UpdateComment(Comment comment)
         {
-            rep.UpdateComment(comment);
+            var oldComment = rep.FindCommentById(comment.Id);
+            oldComment.Content = comment.Content;
+            rep.UpdateComment(oldComment);
             return RedirectToAction("Index");
         }
         [Authorize]
