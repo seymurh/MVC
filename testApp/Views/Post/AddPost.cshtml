@@ -3,6 +3,7 @@
 @using testApp.Repositories;
 @{
     ViewBag.Title = "AddPost";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
 }
 @{
     PostRepository PostRep = new PostRepository();
@@ -33,7 +34,28 @@
         </p>
     </fieldset>
 </form>
-
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <form id="videoForm">
+                    <div class="form-group">
+                        <label class="control-label">Video url</label>
+                        <input type="text" name="video" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="videoSubmit" class="btn btn-primary">Add Video</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div>
     @Html.ActionLink("Back to List", "Users")
 </div>
@@ -42,52 +64,80 @@
 
     @Scripts.Render("~/bundles/jqueryval")
 
-    <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" rel="stylesheet" />
-   @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />*@
+    @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" rel="stylesheet" />*@
+    @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />*@
     @* <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>*@
-    <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js"></script>
+    @*  <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js"></script>*@
+    <link href="~/BlogTemplate/summernote/summernote.css" rel="stylesheet" />
+    <script src="~/BlogTemplate/summernote/summernote.min.js"></script>
     <script type="text/javascript">
-        var myCustomTemplates = {
-            html: function (context) {
-                var locale = context.locale;
-                var options = context.options;
-                return "<li>" +
-                       "<div class='btn-group'>" +
-                       "<a class='btn btn-primary' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>HTML</a>" +
-                       "</div>" +
-                       "</li>";
-            }
-            //,
-            //video: function (context) {
-            //    var locale = context.locale;
-            //    var options = context.options;
-            //    console.log(locale);
-            //    console.log(options);
-            //    return "<li>" +
-            //           "<div class='btn-group'>" +
-            //           "<a class='btn btn-success' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>Video</a>" +
-            //           "</div>" +
-            //           "</li>";
-            //}
-        }
+        //var myCustomTemplates = {
+        //    html: function (context) {
+        //        var locale = context.locale;
+        //        var options = context.options;
+        //        return "<li>" +
+        //               "<div class='btn-group'>" +
+        //               "<a class='btn btn-primary' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>HTML</a>" +
+        //               "</div>" +
+        //               "</li>";
+        //    }
+        //    ,
+        //    video: function (context) {
+        //        var locale = context.locale;
+        //        var options = context.options;
+        //        console.log(locale);
+        //        console.log(options);
+
+        //        return "<li>" +
+        //               "<div class='btn-group'>" +
+        //               "<a class='btn btn-danger' id='video' >Video</a>" +
+        //               "</div>" +
+        //               "</li>";
+        //    }
+        //}
         $(document).ready(function () {
-            $('#Content').wysihtml5(
-                {
-                    customTemplates: myCustomTemplates,
-                    toolbar: {
-                        "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-                        "emphasis": true, //Italics, bold, etc. Default true
-                        "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                        "html": true, //Button which allows you to edit the generated HTML. Default false
-                        "link": true, //Button to insert a link. Default true
-                        "image": true, //Button to insert an image. Default true,
-                        "color": false, //Button to change color of font
-                        "blockquote": true, //Blockquote
-                        "size": "none", //default: none, other options are xs, sm, lg
-                        "video": true
-                    }
-                }
-            );
+            //var wys=   $('#Content').wysihtml5(
+            //       {
+            //           customTemplates: myCustomTemplates,
+            //           toolbar: {
+            //               "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+            //               "emphasis": true, //Italics, bold, etc. Default true
+            //               "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            //               "html": true, //Button which allows you to edit the generated HTML. Default false
+            //               "link": true, //Button to insert a link. Default true
+            //               "image": true, //Button to insert an image. Default true,
+            //               "color": false, //Button to change color of font
+            //               "blockquote": true, //Blockquote
+            //               "size": "none", //default: none, other options are xs, sm, lg
+            //               "video": true
+            //           }
+            //       }
+            //   );
+            var summernote = $("#Content").summernote();
+            //$('#video').click(function () {
+            //    console.log(wys.val());
+            //       $('#videoModal').modal('show');
+            //       $('#videoSubmit').click(function () {
+            //           var cursorPosition = $('#Content').prop("selectionStart");
+            //           var videoSrc = $('#videoForm [name="video"]').val();
+
+            //           var element = '<video> <source src="' + videoSrc + '"  > Your browser does not support the video tag. </video>';
+            //           var txt = wys.val();
+            //           $('#videoForm [name="video"]').val('');
+            //           $('#videoModal').modal('hide');
+            //           $('#videoSubmit').unbind('click');
+            //           var newContent = null;
+            //           if (txt != null && txt != '') {
+            //               newContent= txt.substr(0, cursorPosition) + element + txt.substr(cursorPosition, txt.length);
+            //           } else {
+            //               newContent = element;
+            //           }
+            //         //  wys.html().val('abc');
+            //           var wysihtml5Editor = $('#Content').data("wysihtml5").editor;
+            //           wysihtml5Editor.composer.commands.exec("bold");
+            //       });
+            //   });//video
+
         });
 
         @*$('#submit').click(function () {

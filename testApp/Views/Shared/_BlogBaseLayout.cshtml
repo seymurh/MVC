@@ -22,7 +22,7 @@
 
     <link href="~/BlogTemplate/startbootstrap-blog-post-1.0.4/css/blog-post.css" rel="stylesheet" />
 
-   @* <script src="~/Scripts/jquery-2.2.3.min.js"></script>*@
+    @* <script src="~/Scripts/jquery-2.2.3.min.js"></script>*@
     <script src="~/Scripts/jquery-2.2.3.js"></script>
 
 
@@ -59,16 +59,17 @@
 
     <!-- Page Content -->
     <div class="container">
-       
+
         <div class="row">
             @RenderSection("featured", required: false)
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 @RenderBody()
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
-            @RenderSection("right", required: false)
-
+            <div class=" col-lg-4 col-md-4 hidden-sm hidden-xs">
+                @RenderSection("right", required: false)
+            </div>
         </div>
         <!-- /.row -->
 

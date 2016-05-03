@@ -1,11 +1,17 @@
 ﻿@{
     Layout = "~/Views/Shared/_BlogBaseLayout.cshtml";
 }
-@RenderBody()
+<section>
+    @RenderBody()
+</section>
 
-@section right{
-    @Html.Partial("_rightPartial")
-}
+<section>
+    @section right{
+        @Html.Partial("_rightPartial")
+    }
+</section>
+
+
 @section scripts{
 
     @RenderSection("scripts", required: false)
