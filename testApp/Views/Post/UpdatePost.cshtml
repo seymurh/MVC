@@ -2,11 +2,13 @@
 
 @{
     ViewBag.Title = "UpdatePost";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
 }
 
 <h2>UpdatePost</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -25,7 +27,7 @@
             @Html.LabelFor(model => model.Content)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Content)
+            @Html.TextAreaFor(model => model.Content)
             @Html.ValidationMessageFor(model => model.Content)
         </div>
 
@@ -40,5 +42,15 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @* @Scripts.Render("~/bundles/jqueryval")*@
+    <link href="~/BlogTemplate/summernote/summernote.css" rel="stylesheet" />
+    <script src="~/BlogTemplate/summernote/summernote.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var summernote = $("#Content").summernote();//"code", "Model.Content"
+         
+           // console.log(summernote);
+        });
+    </script>
 }
