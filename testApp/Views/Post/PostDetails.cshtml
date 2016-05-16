@@ -24,7 +24,7 @@
 <hr>
 
 <!-- Date/Time -->
-<p><span class="glyphicon glyphicon-time"></span> Posted on @Model.PostDate</p>
+<p><span class="glyphicon glyphicon-time"></span> Posted on @Model.PostDate.ToString("dd MMM yyyy") </p>
 
 <hr>
 
@@ -35,7 +35,8 @@
 <hr>
 
 <!-- Post Content -->
-<h3>@Model.Header</h3>
+<h3>@Model.Header</h3> 
+<h5>@(Model.Category!=null?Model.Category.Name:"")</h5>
 @Html.Raw(Model.Content)
 <hr>
 
@@ -48,6 +49,7 @@
         <div class="form-group">
             <textarea name="Content" class="form-control" rows="3"></textarea>
         </div>
+       
         <button type="button" id="comment" class="btn btn-primary">Submit</button>
     </form>
 </div>

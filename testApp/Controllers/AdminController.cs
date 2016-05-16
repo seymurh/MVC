@@ -13,8 +13,8 @@ using System.IO;
 
 namespace testApp.Controllers
 {
-   
-    public class AdminController : Controller
+
+    public class AdminController : BlogBaseController
     {
        
 

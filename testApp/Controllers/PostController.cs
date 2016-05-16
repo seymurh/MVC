@@ -13,7 +13,7 @@ using System.IO;
 namespace testApp.Controllers
 {
 
-    public class PostController : Controller
+    public class PostController : BlogBaseController
     {
         PostRepository rep = new PostRepository();
         UserRepository userRepo = new UserRepository();
@@ -37,6 +37,11 @@ namespace testApp.Controllers
         {
             //User user = userRepo.FindById(post.Id);
             //post.Author.Name = user.Name;
+            var id = Request["Category"];
+            ObjectId categoryId = new ObjectId(id);
+            CategoryRepository categoryRep = new CategoryRepository();
+            Category cat = categoryRep.FindById(categoryId);
+            post.Category = cat;
             if (Request.Files.Count > 0)
             {
                 var file = Request.Files[0];

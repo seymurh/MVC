@@ -28,7 +28,17 @@
             <textarea name="Content" id="Content" class="form-control"></textarea>
             @Html.ValidationMessageFor(model => model.Content)
         </div>
-
+        <div class="form-group">
+            <label class="control-label">Category</label>
+            @Html.DropDownListFor(x => x.Category, 
+            (ViewBag.categories as List<Category>)
+            .Select(c => new SelectListItem 
+            { 
+             Text=c.Name,Value=c.Id.ToString()
+            }), new {@class="form-control" }
+            )
+        </div>
+       
         <p>
             <button type="submit" class="btn btn-success" id="submit">Add Post</button>
         </p>
@@ -64,91 +74,14 @@
 
     @Scripts.Render("~/bundles/jqueryval")
 
-    @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" rel="stylesheet" />*@
-    @* <link href="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />*@
-    @* <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>*@
-    @*  <script src="~/bower_components/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.js"></script>*@
+   
     <link href="~/BlogTemplate/summernote/summernote.css" rel="stylesheet" />
     <script src="~/BlogTemplate/summernote/summernote.min.js"></script>
     <script type="text/javascript">
-        //var myCustomTemplates = {
-        //    html: function (context) {
-        //        var locale = context.locale;
-        //        var options = context.options;
-        //        return "<li>" +
-        //               "<div class='btn-group'>" +
-        //               "<a class='btn btn-primary' data-wysihtml5-action='change_view' title='" + locale.html.edit + "'>HTML</a>" +
-        //               "</div>" +
-        //               "</li>";
-        //    }
-        //    ,
-        //    video: function (context) {
-        //        var locale = context.locale;
-        //        var options = context.options;
-        //        console.log(locale);
-        //        console.log(options);
-
-        //        return "<li>" +
-        //               "<div class='btn-group'>" +
-        //               "<a class='btn btn-danger' id='video' >Video</a>" +
-        //               "</div>" +
-        //               "</li>";
-        //    }
-        //}
+    
         $(document).ready(function () {
-            //var wys=   $('#Content').wysihtml5(
-            //       {
-            //           customTemplates: myCustomTemplates,
-            //           toolbar: {
-            //               "font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
-            //               "emphasis": true, //Italics, bold, etc. Default true
-            //               "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-            //               "html": true, //Button which allows you to edit the generated HTML. Default false
-            //               "link": true, //Button to insert a link. Default true
-            //               "image": true, //Button to insert an image. Default true,
-            //               "color": false, //Button to change color of font
-            //               "blockquote": true, //Blockquote
-            //               "size": "none", //default: none, other options are xs, sm, lg
-            //               "video": true
-            //           }
-            //       }
-            //   );
+
             var summernote = $("#Content").summernote();
-            //$('#video').click(function () {
-            //    console.log(wys.val());
-            //       $('#videoModal').modal('show');
-            //       $('#videoSubmit').click(function () {
-            //           var cursorPosition = $('#Content').prop("selectionStart");
-            //           var videoSrc = $('#videoForm [name="video"]').val();
-
-            //           var element = '<video> <source src="' + videoSrc + '"  > Your browser does not support the video tag. </video>';
-            //           var txt = wys.val();
-            //           $('#videoForm [name="video"]').val('');
-            //           $('#videoModal').modal('hide');
-            //           $('#videoSubmit').unbind('click');
-            //           var newContent = null;
-            //           if (txt != null && txt != '') {
-            //               newContent= txt.substr(0, cursorPosition) + element + txt.substr(cursorPosition, txt.length);
-            //           } else {
-            //               newContent = element;
-            //           }
-            //         //  wys.html().val('abc');
-            //           var wysihtml5Editor = $('#Content').data("wysihtml5").editor;
-            //           wysihtml5Editor.composer.commands.exec("bold");
-            //       });
-            //   });//video
-
         });
-
-        @*$('#submit').click(function () {
-            var data = $('#form').serialize();
-
-            var url = "@Url.Action("AddPost", "AdminController")";
-            $.post(url, data).done(function () {
-                window.location = "@Url.Action("Index","Post")";
-            }).error(function (er) {
-                console.log(err);
-            });
-        });*@
     </script>
 }

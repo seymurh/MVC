@@ -12,7 +12,6 @@ c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Ent
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Microsoft.Data.Edm.dll
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Microsoft.Data.OData.dll
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Microsoft.Web.Infrastructure.dll
-c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Microsoft.Web.WebPages.OAuth.dll
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\Newtonsoft.Json.dll
 c:\users\seymour.h\documents\visual studio 2013\Projects\testApp\testApp\bin\System.Net.Http.Formatting.dll

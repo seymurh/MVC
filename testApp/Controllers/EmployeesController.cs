@@ -11,8 +11,8 @@ using MongoDB.Bson;
 namespace testApp.Controllers
 {
   //  [CustomExceptionFilter]
-   
-    public class EmployeesController:Controller
+
+    public class EmployeesController : BlogBaseController
     {
 
        

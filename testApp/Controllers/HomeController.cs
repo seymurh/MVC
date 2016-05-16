@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace testApp.Controllers
 {
-    public class HomeController : Controller 
+    public class HomeController : BlogBaseController 
     {
         [Authorize]
         public ActionResult Index()

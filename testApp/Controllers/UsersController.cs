@@ -9,7 +9,7 @@ using testApp.Repositories;
 
 namespace testApp.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BlogBaseController
     {
         //
         // GET: /Users/

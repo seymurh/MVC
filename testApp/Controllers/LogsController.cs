@@ -8,7 +8,7 @@ using testApp.Repositories;
 
 namespace testApp.Controllers
 {
-    public class LogsController : Controller
+    public class LogsController : BlogBaseController
     {
         //
         // GET: /Logs/

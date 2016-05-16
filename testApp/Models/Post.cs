@@ -15,6 +15,6 @@ namespace testApp.Models
         public List<Comment> Comments {get;set;}
         public string ImageUrl { get; set; }
         public DateTime PostDate { get; set; }
-        
+        public Category Category { get; set; }
     }
 }
