@@ -1,0 +1,47 @@
+﻿@{
+   // ViewBag.Title = "ApiTest";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+
+<h2>ApiTest</h2>
+
+<form>
+    <input type="text" name="Content" />
+    <button type="button" id="post" class="btn btn-primary">Post</button>
+    <button type="button" id="put" class="btn btn-success">Put</button>
+    <button type="button" id="del" class="btn btn-danger">Delete</button>
+</form>
+
+    <script type="text/javascript">
+        function call(postId, method, data) {
+            return $.ajax({
+                // RESTful Web API URL:  /api/posts/{postId}/comments
+                url: ['/api/post',postId].join('/'),
+                type: method,
+                data: JSON.stringify(data),
+                contentType: 'application/json'
+            });
+        }
+
+        $(document).ready(function () {
+            //$('#post').click(function () {
+            //    $.post("/api/post", { Content: "123" }).done(function (data) {
+            //        alert(data);
+            //    }).error(function (er) {
+            //        console.log(er);
+            //    });
+            //});
+            $('#post').click(function () {
+                call(null, "POST", { Content: "123",Header:"bashliq" });
+            });
+            $('#put').click(function () {
+                call("572850940774d7089c8041c3", "PUT", { Content: "564", Header: "bashliq put" });
+            });
+            $("#del").click(function myfunction() {
+                call("572850940774d7089c8041c3", "DELETE", { Content: "Delete content", Header: "bashliq Delete" });
+            });
+
+        });
+       
+
+    </script>

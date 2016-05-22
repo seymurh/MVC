@@ -187,6 +187,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CategoryController.cs" />
     <Compile Include="Api\CommentsController.cs" />
     <Compile Include="Api\PostController.cs" />
     <Compile Include="Api\ValuesController1.cs" />
@@ -886,6 +887,7 @@
     <Content Include="Views\Shared\_BlogBaseLayout.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Add.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@ using testApp.Filters;
 namespace testApp.Api
 {
    //  [Route("api/post/{id}")]
-   
+   [Authorize]
     public class PostController : ApiController
     {
         protected override System.Web.Http.Results.ExceptionResult InternalServerError(Exception exception)
@@ -29,7 +29,7 @@ namespace testApp.Api
         PostRepository rep = new PostRepository();
          [Route("api/post/")]
         public IEnumerable<Post> Get()
-        {
+         {
             var posts = rep.Find();
             return posts;
         }
@@ -43,17 +43,20 @@ namespace testApp.Api
         }
         //Post insert etmək üçündür
         // POST api/<controller>
+         [Route("api/post/")]
         public void Post([FromBody]Post value)
         {
 
         }
         //PUT update etmək üçündür
         // PUT api/<controller>/5
+          [Route("api/post/{id}")]
         public void Put([ModelBinder] ObjectId id, [FromBody]Post value)
         {
         }
 
         // DELETE api/<controller>/5
+        [Route("api/post/{id}")]
         public void Delete([ModelBinder] ObjectId id)
         {
         }

@@ -8,6 +8,7 @@ using System.Web.Http.ModelBinding;
 using MongoDB.Bson;
 using testApp.Filters;
 using testApp.Models;
+using testApp.Models.ModelBinders;
 using testApp.Repositories;
 
 namespace testApp.Api
@@ -19,7 +20,7 @@ namespace testApp.Api
         // GET api/<controller>
 
         PostRepository rep = new PostRepository();
-         
+
         public IEnumerable<Comment> Get([ModelBinder]ObjectId postId)
         {
            // var id = new ObjectId(postId);

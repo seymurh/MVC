@@ -8,7 +8,7 @@ namespace testApp.Controllers
 {
     public class HomeController : BlogBaseController 
     {
-        [Authorize]
+       // [Authorize]
         public ActionResult Index()
         {
 
@@ -16,7 +16,10 @@ namespace testApp.Controllers
 
             return  View("Index",new { Name = "Ilqar", Salary = "1890" });
         }
-
+        public ActionResult Test()
+        {
+            return View();
+        }
         public FileResult About()
         {
             ViewBag.Message = "Your app description page.";
